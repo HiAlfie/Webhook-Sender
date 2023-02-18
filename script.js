@@ -12,6 +12,10 @@ let generatedNumbers = [];
 // Function to generate a random number between 1 and 1000
 function generateNumber() {
   let number = Math.floor(Math.random() * 1000) + 1;
+  // If the number has already been generated, generate a new number
+  while (generatedNumbers.includes(number)) {
+    number = Math.floor(Math.random() * 1000) + 1;
+  }
   // Add the number to the generatedNumbers array
   generatedNumbers.push(number);
   // Update the UI with the generated number and the number index
@@ -37,7 +41,7 @@ function generateNumber() {
 nameForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const nameInput = document.getElementById('name');
-  const name = document.getElementById("name").value.trim();
+  const name = nameInput.value.trim();
   localStorage.setItem('username', name);
   homeScreen.style.display = 'none';
   gameScreen.style.display = 'block';
