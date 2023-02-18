@@ -1,57 +1,58 @@
-const nameInput = document.getElementById('name-input');
-const submitBtn = document.getElementById('submit-btn');
+// Get the necessary HTML elements
+const homeScreen = document.querySelector('.home-screen');
+const nameForm = document.querySelector('form');
+const gameScreen = document.querySelector('.game-screen');
+const generateButton = document.getElementById('generate-button');
+const numberOutput = document.getElementById('number-output');
+const numberIndex = document.getElementById('number-index');
 
-submitBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    const name = nameInput.value;
-    sessionStorage.setItem('name', name);
-    window.location.href = 'game.html';
-});
+// Initialize an empty array to keep track of generated numbers
+let generatedNumbers = [];
 
-// Game page
-
-const generateBtn = document.getElementById('generate-btn');
-const result = document.getElementById('result');
-const indexList = document.getElementById('index-list');
-const name = sessionStorage.getItem('name');
-const webhookUrl = 'https://discord.com/api/webhooks/1076179716337303593/O-o8ISaDgHsupAkcKKzlEjlLYtdSDkwRqb0uqtCDEDJ8nqJtOK5aZh999vUOS9SU7luA';
-
-generateBtn.addEventListener('click', () => {
-    const randomNumber = Math.floor(Math.random() * 1000) + 1;
-    result.textContent = `Your random number is: ${randomNumber}`;
-    const indexItem = indexList.children[randomNumber - 1];
-    indexItem.style.backgroundColor = 'green';
-    checkGameCompletion();
-});
-
-function checkGameCompletion() {
-    let allGreen = true;
-    for (let i = 0; i < indexList.children.length; i++) {
-        const item = indexList.children[i];
-        if (item.style.backgroundColor !== 'green') {
-            allGreen = false;
-            break;
-        }
-    }
-    if (allGreen) {
-        sendWebhookMessage(`${name} has completed the game!`);
-    }
-}
-
-function sendWebhookMessage(message) {
-    const data = { content: message };
+// Function to generate a random number between 1 and 1000
+function generateNumber() {
+  let number = Math.floor(Math.random() * 1000) + 1;
+  // If the number has already been generated, generate a new number
+  while (generatedNumbers.includes(number)) {
+    number = Math.floor(Math.random() * 1000) + 1;
+  }
+  // Add the number to the generatedNumbers array
+  generatedNumbers.push(number);
+  // Update the UI with the generated number and the number index
+  numberOutput.innerText = number;
+  const indexItem = numberIndex.children[number - 1];
+  indexItem.style.backgroundColor = 'green';
+  // If all 1000 numbers have been generated, send a message to the Discord webhook
+  if (generatedNumbers.length === 1000) {
+    const username = localStorage.getItem('username');
+    const webhookUrl = 'https://discord.com/api/webhooks/1076179716337303593/O-o8ISaDgHsupAkcKKzlEjlLYtdSDkwRqb0uqtCDEDJ8nqJtOK5aZh999vUOS9SU7luA';
+    const message = `${username} has completed the game!`;
     fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ content: message })
     });
+  }
 }
 
-// Initialize index list
+// Event listener for the name form submission
+nameForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const nameInput = document.getElementById('name');
+  const name = nameInput.value.trim();
+  localStorage.setItem('username', name);
+  homeScreen.style.display = 'none';
+  gameScreen.style.display = 'block';
+});
 
-const indexItems = [];
+// Event listener for the generate button
+generateButton.addEventListener('click', generateNumber);
+
+// Populate the number index list with 1000 items
 for (let i = 1; i <= 1000; i++) {
-    const item = document.createElement('li');
-    indexItems.push(item);
+  const item = document.createElement('li');
+  item.innerText = i;
+  numberIndex.appendChild(item);
 }
-indexList.append(...indexItems);
