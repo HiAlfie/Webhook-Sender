@@ -1,31 +1,29 @@
-<head>
-  <meta charset="UTF-8">
-  <title>RNG Game</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RNG Game</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
   <body>
-    <h1>Welcome to the RNG Game!</h1>
-    <p>Please enter your name to get started:</p>
-    <form id="name-form" method="post" action="index.html">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
-      <button type="submit">Submit</button>
-    </form>
-    
-    <div id="output"></div>
-    
-    <div id="index">
-      <h2>Index of Generated Numbers</h2>
-      <ul>
-        <!-- Placeholder content for the list of numbers -->
-        <li class="red">1</li>
-        <li class="red">2</li>
-        <li class="red">3</li>
-        <!-- ... -->
-        <li class="red">1000</li>
-      </ul>
+    <div class="home-screen">
+      <h1>Welcome to the RNG Game!</h1>
+      <p>Please enter your name to get started:</p>
+      <form action="" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <input type="submit" value="Submit">
+      </form>
     </div>
-
+    <div class="game-screen" style="display: none;">
+      <h1>RNG Game</h1>
+      <p>Generated number:</p>
+      <div id="number-output"></div>
+      <button id="generate-button">Generate Number</button>
+      <hr>
+      <h2>Index of Generated Numbers</h2>
+      <ul id="number-index"></ul>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
