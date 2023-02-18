@@ -1,49 +1,62 @@
-// get the DOM elements
+// get name form and input
+const nameForm = document.getElementById("name-form");
 const nameInput = document.getElementById("name");
-const submitBtn = document.getElementById("submitBtn");
-const generateBtn = document.getElementById("generateBtn");
-const indexList = document.getElementById("indexList");
 
-// create an array to keep track of generated numbers
-let generatedNumbers = [];
+// get game elements
+const gameDiv = document.getElementById("game");
+const playerName = document.getElementById("player-name");
+const generateBtn = document.getElementById("generate-btn");
+const generatedNum = document.getElementById("generated-num");
+const numInfo = document.getElementById("num-info");
 
-// function to generate a random number between 1 and 1000
-function generateNumber() {
-  let number = Math.floor(Math.random() * 1000) + 1;
-  return number;
-}
+let playerNameValue;
+let generatedNums = new Set();
 
-// function to check if a number has already been generated
-function hasGeneratedNumber(number) {
-  return generatedNumbers.includes(number);
-}
-
-// function to mark a number as generated in the index list
-function markAsGenerated(number) {
-  let indexListItem = indexList.children[number - 1];
-  indexListItem.classList.add("generated");
-}
-
-// function to handle the "generate number" button click
-function onGenerateClick() {
-  let number = generateNumber();
-  generatedNumbers.push(number);
-  markAsGenerated(number);
-}
-
-// function to handle the "submit" button click
-function onSubmitClick() {
-  const name = nameInput.value.trim();
-  if (name === "") {
-    alert("Please enter your name to start the game.");
-  } else {
-    // store the name in local storage
-    localStorage.setItem("name", name);
-    // switch to the game page
-    window.location.href = "game.html";
+nameForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  playerNameValue = nameInput.value.trim();
+  if (playerNameValue) {
+    playerName.textContent = playerNameValue;
+    nameForm.reset();
+    showGame();
   }
+});
+
+function showGame() {
+  document.getElementById("home").style.display = "none";
+  gameDiv.style.display = "block";
 }
 
-// add event listeners
-submitBtn.addEventListener("click", onSubmitClick);
-generateBtn.addEventListener("click", onGenerateClick);
+function generateNumber() {
+  let num = Math.floor(Math.random() * 1000) + 1;
+  while (generatedNums.has(num)) {
+    num = Math.floor(Math.random() * 1000) + 1;
+  }
+  generatedNums.add(num);
+  return num;
+}
+
+generateBtn.addEventListener("click", () => {
+  const num = generateNumber();
+  generatedNum.textContent = `Generated Number: ${num}`;
+  numInfo.textContent = `Number ${num} has been generated!`;
+  document.getElementById(`num-${num}`).style.backgroundColor = "green";
+  if (generatedNums.size === 1000) {
+    const webhookUrl = "YOUR_WEBHOOK_URL";
+    const message = `${playerNameValue} has completed the game!`;
+    sendWebhook(webhookUrl, message);
+  }
+});
+
+function sendWebhook(url, message) {
+  const payload = {
+    content: message
+  };
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+}
