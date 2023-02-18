@@ -37,7 +37,7 @@ function generateNumber() {
 nameForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const nameInput = document.getElementById('name');
-  const name = nameInput.value.trim();
+  const name = document.getElementById("name").value.trim();
   localStorage.setItem('username', name);
   homeScreen.style.display = 'none';
   gameScreen.style.display = 'block';
