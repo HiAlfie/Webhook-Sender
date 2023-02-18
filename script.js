@@ -12,9 +12,6 @@ let generatedNumbers = [];
 // Function to generate a random number between 1 and 1000
 function generateNumber() {
   let number = Math.floor(Math.random() * 1000) + 1;
-  // If the number has already been generated, generate a new number
-  while (generatedNumbers.includes(number)) {
-    number = Math.floor(Math.random() * 1000) + 1;
   }
   // Add the number to the generatedNumbers array
   generatedNumbers.push(number);
