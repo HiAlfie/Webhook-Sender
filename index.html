@@ -6,22 +6,25 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div id="home">
+    <div class="home-screen">
       <h1>Welcome to the RNG Game!</h1>
-      <form id="name-form">
-        <label for="name">Please enter your name to get started:</label>
-        <input type="text" id="name" name="name">
+      <p>Please enter your name to get started:</p>
+      <form action="" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
         <input type="submit" value="Submit">
       </form>
     </div>
-
-    <div id="game" style="display: none">
-      <h1 id="game-header">Hello, <span id="player-name"></span>!</h1>
-      <button id="generate-btn">Generate Number</button>
-      <div id="generated-num"></div>
-      <p id="num-info"></p>
+    <div class="game-screen" style="display: none;">
+      <h1>RNG Game</h1>
+      <p>Generated number:</p>
+      <div id="number-output"></div>
+      <button id="generate-button">Generate Number</button>
+      <hr>
+      <h2>Index of Generated Numbers</h2>
+      <ul id="number-index"></ul>
     </div>
-    
     <script src="script.js"></script>
   </body>
 </html>
+
