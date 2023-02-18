@@ -21,7 +21,7 @@ function generateNumber() {
   // If all 1000 numbers have been generated, send a message to the Discord webhook
   if (generatedNumbers.length === 1000) {
     const username = localStorage.getItem('username');
-    const webhookUrl = 'YOUR_DISCORD_WEBHOOK_URL';
+    const webhookUrl = 'https://discord.com/api/webhooks/1076179716337303593/O-o8ISaDgHsupAkcKKzlEjlLYtdSDkwRqb0uqtCDEDJ8nqJtOK5aZh999vUOS9SU7luA';
     const message = `${username} has completed the game!`;
     fetch(webhookUrl, {
       method: 'POST',
