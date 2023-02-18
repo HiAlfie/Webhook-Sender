@@ -14,7 +14,7 @@ const generateBtn = document.getElementById('generate-btn');
 const result = document.getElementById('result');
 const indexList = document.getElementById('index-list');
 const name = sessionStorage.getItem('name');
-const webhookUrl = 'YOUR_DISCORD_WEBHOOK_URL';
+const webhookUrl = 'https://discord.com/api/webhooks/1076179716337303593/O-o8ISaDgHsupAkcKKzlEjlLYtdSDkwRqb0uqtCDEDJ8nqJtOK5aZh999vUOS9SU7luA';
 
 generateBtn.addEventListener('click', () => {
     const randomNumber = Math.floor(Math.random() * 1000) + 1;
