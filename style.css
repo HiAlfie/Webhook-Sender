@@ -70,3 +70,7 @@ button:hover {
 #index div.green {
   background-color: green;
 }
+
+#home ol {
+  display: none;
+}
