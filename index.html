@@ -1,3 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Alfies Webhook Sender</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html><head>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>General Use Sender</title>
+    <style>
+    textarea{
+    resize: none; 
+}
+    .btn-full-width {
+    width: 100%;
+    }
+    .input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+     color: #2196f3 !important;
+    }
+    .input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+     border-bottom: 1px solid #2196f3 !important;
+     box-shadow: 0 1px 0 0 #2196f3 !important;
+    }
+    </style>
 </head>
 <body>
     <main class="container">
@@ -9,17 +39,17 @@
         </div>
         <div class="card card-panel">
             <div class="input-field">
-                <input id="url" type="text"> <label for="url" class="">Webhook URL</label>
+                <input id="url" type="text"> <label for="url" class="">put ur webhooo k here</label>
             </div>
             <div class="input-field">
-                <textarea id="content" style="height: 150px" placeholder="Message"></textarea> 
+                <textarea id="content" style="height: 150px" placeholder="whatever u want it to say"></textarea> 
             </div>
             <div class="row">
                 <div class="input-field s6 col">
-                    <input id="username" type="text"> <label for="username" class="">name</label>
+                    <input id="username" type="text"> <label for="username" class="">do whatever name u want</label>
                 </div>
                 <div class="input-field s6 col">
-                    <input id="avatar_url" type="text"> <label for="avatar_url" class="">Avatar Url</label>
+                    <input id="avatar_url" type="text"> <label for="avatar_url" class="">give ur webhook a pfp too</label>
                 </div>
             </div>
 
@@ -32,3 +62,48 @@
 		#2195f3 0%,
 		#2195f3);
 	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#2195f3),
+		to(#2195f3));
+	-moz-border-radius: 30px;
+	-webkit-border-radius: 30px;
+	border-radius: 30px;
+	border: 1px solid #2195f3;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.7);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.7);
+	box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.7);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);">Send Webhook</button><div></div></div>
+    </main>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript">
+    </script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js">
+    </script> 
+    <script>
+    $(function() {
+        $('#Submit').click(function(e) {
+        var url = $("#url").val();
+        var content = $("#content").val();
+        var username = $("#username").val();
+        var avatar_url = $("#avatar_url").val();
+        $.post(url,
+    {"content": content, "username": username, "avatar_url": avatar_url},
+        function(){
+            Materialize.toast('ur fing has been sent!', 4000)
+        });
+        });
+    });
+    </script>
+
+<div class="hiddendiv common"></div><div id="toast-container"></div></body></html>
+<!-- partial -->
+  
+</body>
+</html>
